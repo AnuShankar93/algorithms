@@ -1,0 +1,39 @@
+//Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
+//Array: [1, 3, 2, 6, -1, 4, 1, 8, 2], K=5
+
+const array = [1, 3, 2, 6, -1, 4, 1, 8, 2];
+const k = 5;
+
+// bruteforce
+// const averageOfAllSubArray = (arr, size) => {
+//     let highestAvg = 0;
+//     for(let i =0; i < arr.length - size + 1; i++){
+//         let average = 0;
+//         let total = 0;
+//         for(j=i; j< i+ size; j++){
+//             total += arr[j];
+//         }
+//         average = total/size;
+//         if(highestAvg < average) {
+//             highestAvg = average;
+//         }
+//     }
+//     return highestAvg;
+// }
+
+
+const averageOfAllSubArray = (arr, size) => {
+    let result = [];
+    let windowSum = 0; 
+    let windowStart = 0;
+    for (let i = 0; i< arr.length; i++){
+        windowSum += arr[i]; // adding the values in array one by one
+        if(i >= size -1){ // slide the window, we don't need to slide if the required size 
+            result.push(windowSum/size); // calculate the average
+            windowSum -= arr[windowStart]; // subtract the element going out
+            windowStart +=1; // slide window 
+        }
+    }
+    return result;
+}
+console.log(averageOfAllSubArray(array, k))
